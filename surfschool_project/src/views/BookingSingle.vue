@@ -2,7 +2,15 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12" md="6">
-        Dates
+        <v-col cols="12" md="6">
+          <v-date-picker
+              v-model="picker"
+              show-adjacent-months
+          ></v-date-picker>
+        </v-col>
+        <v-col cols="12" md="6">
+          Time picker
+        </v-col>
       </v-col>
       <v-col cols="12" md="6">
         <v-row>
@@ -55,7 +63,21 @@
                   required
               ></v-text-field>
             </v-row>
+            <v-row>
+              <v-text-field
+                  label="Gender"
+              ></v-text-field>
+            </v-row>
+            <v-row>
+              <v-checkbox
+                  v-model="checkbox"
+                  :label="`Require wetsuit`"
+              ></v-checkbox>
+            </v-row>
           </v-col>
+        </v-row>
+        <v-row>
+          <v-btn>Book</v-btn>
         </v-row>
       </v-col>
     </v-row>
