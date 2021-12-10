@@ -31,4 +31,9 @@
             <column name="email" type="text"/>
         </createTable>
     </changeSet>
+    <changeSet id="2021-12-10 add price" author="T.Veskilt">
+        <addColumn tableName="surf_style">
+            <column name="price" type="int"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
