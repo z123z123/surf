@@ -1,7 +1,18 @@
 package com.example.surf;
 
+import com.example.surf.DTOs.BookingInformation;
+import com.example.surf.DTOs.Styles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowCallbackHandler;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
+import java.awt.print.Book;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @org.springframework.stereotype.Repository
 
@@ -9,5 +20,67 @@ public class Repository {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
+    public List<Styles> getStyles() {
+        String sql = "SELECT * FROM surf_style";
+        Map<String, Object> paramMap = new HashMap<>();
+        return jdbcTemplate.query(sql, paramMap, new StylesRowMapper());
+    }
 
+    public void bookSingleClient(BookingInformation bookingInformation) {
+        String sql = "INSERT INTO surf_client(booking_id, date, time, surf_style, first_name, last_name, level, require_wetsuit,gender, weight, height, email )" +
+                " VALUES (:booking_id, :date, :time, :surf_style, :first_name, :last_name, :level, :require_wetsuit, :gender, :weight, :height, :email)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("booking_id", bookingInformation.getBookingId());
+        paramMap.put("date", bookingInformation.getDate());
+        paramMap.put("time", bookingInformation.getTime());
+        paramMap.put("surf_style", bookingInformation.getSurfStyle());
+        paramMap.put("first_name", bookingInformation.getFirstName());
+        paramMap.put("last_name", bookingInformation.getLastName());
+        paramMap.put("level", bookingInformation.getLevel());
+        paramMap.put("require_wetsuit", bookingInformation.isWetsuit());
+        paramMap.put("gender", bookingInformation.getGender());
+        paramMap.put("weight", bookingInformation.getWeight());
+        paramMap.put("height", bookingInformation.getHeight());
+        paramMap.put("email", bookingInformation.getEmail());
+
+        jdbcTemplate.update(sql, paramMap);
+    }
+
+    public List<BookingInformation> getAllClients() {
+        String sql = "SELECT * FROM surf_client";
+        Map<String, Object> paramMap = new HashMap<>();
+
+        return jdbcTemplate.query(sql, paramMap, new BookingInformationRowMapper());
+    }
+
+
+    private class StylesRowMapper implements RowMapper<Styles> {
+        public Styles mapRow(ResultSet resultSet, int i) throws SQLException {
+            Styles styles = new Styles();
+            styles.setId(resultSet.getInt("id"));
+            styles.setStyle(resultSet.getString("surf_style"));
+            styles.setPrice(resultSet.getInt("price"));
+            return styles;
+        }
+    }
+
+    private class BookingInformationRowMapper implements RowMapper<BookingInformation> {
+        public BookingInformation mapRow(ResultSet resultSet, int i) throws SQLException {
+            BookingInformation client = new BookingInformation();
+            client.setBookingId(resultSet.getInt("booking_id"));
+            client.setDate(resultSet.getDate("date"));
+            client.setTime(resultSet.getTime("time"));
+            client.setSurfStyle(resultSet.getInt("surf_style"));
+            client.setFirstName(resultSet.getString("first_name"));
+            client.setLastName(resultSet.getString("last_name"));
+            client.setLevel(resultSet.getString("level"));
+            client.setWetsuit(resultSet.getBoolean("require_wetsuit"));
+            client.setGender(resultSet.getString("gender"));
+            client.setWeight(resultSet.getInt("weight"));
+            client.setHeight(resultSet.getInt("height"));
+            client.setEmail(resultSet.getString("email"));
+
+            return client;
+        }
+    }
 }

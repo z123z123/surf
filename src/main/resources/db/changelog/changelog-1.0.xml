@@ -36,4 +36,7 @@
             <column name="price" type="int"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="" author="">
+        <modifyDataType tableName="surf_client" columnName="time" newDataType="time"></modifyDataType>
+    </changeSet>
 </databaseChangeLog>
