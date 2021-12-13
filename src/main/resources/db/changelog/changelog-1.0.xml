@@ -39,4 +39,13 @@
     <changeSet id="" author="">
         <modifyDataType tableName="surf_client" columnName="time" newDataType="time"></modifyDataType>
     </changeSet>
+    <changeSet id="2021-12-13" author="T.Veskilt">
+        <createTable tableName="admin_user">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"></constraints>
+            </column>
+            <column name="user_name" type="text"></column>
+            <column name="password" type="text"></column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
