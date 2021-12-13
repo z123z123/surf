@@ -18,12 +18,12 @@ public class Controller {
     @Autowired
     private Service surfService;
 
-    @GetMapping("api/getstyles")
+    @GetMapping("api/public/getstyles")
     public List<Styles> getStyles() {
         return surfService.getStyles();
     }
 
-    @PostMapping("api/bookingsingle")
+    @PostMapping("api/public/bookingsingle")
     public void bookSingleClient(@RequestBody BookingInformation bookingInformation) {
         surfService.bookSingleClient(bookingInformation);
     }
@@ -33,16 +33,17 @@ public class Controller {
         return surfService.getAllClients();
     }
 
-    @PostMapping("createadminuser")
+    @PostMapping("api/public/createadminuser")
     public void createAdminUser(@RequestBody CreateUserRequest request){
         String userName = request.getUserName();
         String password = request.getPassword();
         surfService.createAdminUser(userName, password);
     }
-    @PostMapping("login")
+    @PostMapping("api/public/login")
     public String adminLogin(@RequestBody LoginUserRequest request){
         String userName = request.getUserName();
         String password = request.getPassword();
         return surfService.adminLogin(userName, password);
     }
+
 }

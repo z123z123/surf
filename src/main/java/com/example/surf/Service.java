@@ -3,6 +3,9 @@ package com.example.surf;
 import com.example.surf.DTOs.BookingInformation;
 import com.example.surf.DTOs.CreateUserRequest;
 import com.example.surf.DTOs.Styles;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -35,9 +38,12 @@ public class Service {
     public String adminLogin(String userName, String password){
         String encodedPassword = surfRepository.adminLogin(userName);
         if(passwordEncoder.matches(password, encodedPassword)){
-            return "Logged in";
+            JwtBuilder builder = Jwts.builder()
+                    .signWith(SignatureAlgorithm.HS256, "secret")
+                    .claim("userName", userName);
+            return builder.compact();
         } else {
-            return "Wrong password";
+            throw new ApplicationException("Wrong password");
         }
     }
 
