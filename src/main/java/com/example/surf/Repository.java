@@ -98,4 +98,37 @@ public class Repository {
             return client;
         }
     }
+
+    public int deleteClient(int clientId) {
+        String sql = "DELETE FROM surf_client WHERE client_id = :clientId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("clientId", clientId);
+
+        return jdbcTemplate.update(sql, paramMap);
+    }
+
+    public BookingInformation editClient(int clientId, BookingInformation client) {
+        String sql = "UPDATE surf_client SET booking_id = :bookingId, date = :date, time = :time, " +
+                "surf_style = :surfStyle, first_name = :firstName, last_name = :lastName, " +
+                "level = :level, require_wetsuit = :wetsuit, gender = :gender, weight = :weight, " +
+                "height = :height, email = :email, client_id = :clientId WHERE client_id = :clientId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("clientId", clientId);
+        paramMap.put("bookingId", client.getBookingId());
+        paramMap.put("date", client.getDate());
+        paramMap.put("time", client.getTime());
+        paramMap.put("surfStyle", client.getSurfStyle());
+        paramMap.put("firstName", client.getFirstName());
+        paramMap.put("lastName", client.getLastName());
+        paramMap.put("level", client.getLevel());
+        paramMap.put("wetsuit", client.isWetsuit());
+        paramMap.put("gender", client.getGender());
+        paramMap.put("weight", client.getWeight());
+        paramMap.put("height", client.getHeight());
+        paramMap.put("email", client.getEmail());
+        jdbcTemplate.update(sql, paramMap);
+
+        return client;
+    }
+
 }
