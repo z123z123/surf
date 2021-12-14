@@ -33,9 +33,9 @@ public class Controller {
         return surfService.deleteClient(booking_id);
     }
 
-//    @PutMapping("api/editclient/{id}")
-//    public BookingInformation(@PathVariable("id") int booking_id, @RequestBody BookingInformation client) {
-//        return surfService.editClient(booking_id, client);
-//    }
+    @PutMapping("api/editclient/{id}")
+    public BookingInformation editClient(@PathVariable("id") int clientId, @RequestBody BookingInformation client) {
+        return surfService.editClient(clientId, client);
+    }
 
 }

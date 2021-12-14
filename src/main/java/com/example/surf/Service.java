@@ -28,8 +28,8 @@ public class Service {
         return surfRepository.deleteClient(booking_id);
     }
 
-    public BookingInformation editClient(int booking_id, BookingInformation client) {
-        return surfRepository.editClient(booking_id, client);
+    public BookingInformation editClient(int clientId, BookingInformation client) {
+        return surfRepository.editClient(clientId, client);
     }
 
 
