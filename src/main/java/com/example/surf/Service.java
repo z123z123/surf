@@ -46,5 +46,13 @@ public class Service {
             throw new ApplicationException("Wrong password");
         }
     }
+    
+    public int deleteClient(int booking_id) {
+        return surfRepository.deleteClient(booking_id);
+    }
+
+    public BookingInformation editClient(int clientId, BookingInformation client) {
+        return surfRepository.editClient(clientId, client);
+    }
 
 }
