@@ -5,10 +5,7 @@ import com.example.surf.DTOs.CreateUserRequest;
 import com.example.surf.DTOs.LoginUserRequest;
 import com.example.surf.DTOs.Styles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,5 +42,13 @@ public class Controller {
         String password = request.getPassword();
         return surfService.adminLogin(userName, password);
     }
+    @DeleteMapping("api/deleteclient/{id}")
+    public int deleteClient(@PathVariable("id") int booking_id) {
+        return surfService.deleteClient(booking_id);
+    }
 
+    @PutMapping("api/editclient/{id}")
+    public BookingInformation editClient(@PathVariable("id") int clientId, @RequestBody BookingInformation client) {
+        return surfService.editClient(clientId, client);
+    }
 }
