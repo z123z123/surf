@@ -30,7 +30,7 @@ public class Controller {
         return surfService.getAllClients();
     }
 
-    @PostMapping("api/public/createadminuser")
+    @PostMapping("api/createadminuser")
     public void createAdminUser(@RequestBody CreateUserRequest request){
         String userName = request.getUserName();
         String password = request.getPassword();
