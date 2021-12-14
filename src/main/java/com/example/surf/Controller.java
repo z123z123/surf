@@ -3,10 +3,7 @@ package com.example.surf;
 import com.example.surf.DTOs.BookingInformation;
 import com.example.surf.DTOs.Styles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +24,18 @@ public class Controller {
     }
 
     @GetMapping("api/getallclients")
-    public List<BookingInformation> getAllClients(){
+    public List<BookingInformation> getAllClients() {
         return surfService.getAllClients();
     }
+
+    @DeleteMapping("api/deleteclient/{id}")
+    public int deleteClient(@PathVariable("id") int booking_id) {
+        return surfService.deleteClient(booking_id);
+    }
+
+    @PutMapping("api/editclient/{id}")
+    public BookingInformation(@PathVariable("id") int booking_id, @RequestBody BookingInformation client) {
+        return surfService.editClient(booking_id, client);
+    }
+
 }

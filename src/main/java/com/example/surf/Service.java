@@ -20,8 +20,17 @@ public class Service {
         surfRepository.bookSingleClient(bookingInformation);
     }
 
-    public List<BookingInformation> getAllClients(){
+    public List<BookingInformation> getAllClients() {
         return surfRepository.getAllClients();
     }
+
+    public int deleteClient(int booking_id) {
+        return surfRepository.deleteClient(booking_id);
+    }
+
+    public BookingInformation editClient(int booking_id, BookingInformation client) {
+        return surfRepository.editClient(booking_id, client);
+    }
+
 
 }
