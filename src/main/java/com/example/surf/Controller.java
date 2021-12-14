@@ -1,6 +1,8 @@
 package com.example.surf;
 
 import com.example.surf.DTOs.BookingInformation;
+import com.example.surf.DTOs.CreateUserRequest;
+import com.example.surf.DTOs.LoginUserRequest;
 import com.example.surf.DTOs.Styles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +18,12 @@ public class Controller {
     @Autowired
     private Service surfService;
 
-    @GetMapping("api/getstyles")
+    @GetMapping("api/public/getstyles")
     public List<Styles> getStyles() {
         return surfService.getStyles();
     }
 
-    @PostMapping("api/bookingsingle")
+    @PostMapping("api/public/bookingsingle")
     public void bookSingleClient(@RequestBody BookingInformation bookingInformation) {
         surfService.bookSingleClient(bookingInformation);
     }
@@ -30,4 +32,18 @@ public class Controller {
     public List<BookingInformation> getAllClients(){
         return surfService.getAllClients();
     }
+
+    @PostMapping("api/public/createadminuser")
+    public void createAdminUser(@RequestBody CreateUserRequest request){
+        String userName = request.getUserName();
+        String password = request.getPassword();
+        surfService.createAdminUser(userName, password);
+    }
+    @PostMapping("api/public/login")
+    public String adminLogin(@RequestBody LoginUserRequest request){
+        String userName = request.getUserName();
+        String password = request.getPassword();
+        return surfService.adminLogin(userName, password);
+    }
+
 }

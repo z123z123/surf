@@ -1,8 +1,13 @@
 package com.example.surf;
 
 import com.example.surf.DTOs.BookingInformation;
+import com.example.surf.DTOs.CreateUserRequest;
 import com.example.surf.DTOs.Styles;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -11,7 +16,8 @@ import java.util.List;
 public class Service {
     @Autowired
     private Repository surfRepository;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     public List<Styles> getStyles() {
         return surfRepository.getStyles();
     }
@@ -22,6 +28,23 @@ public class Service {
 
     public List<BookingInformation> getAllClients(){
         return surfRepository.getAllClients();
+    }
+
+    public void createAdminUser(String userName, String password){
+        String encodedPassword = passwordEncoder.encode(password);
+        surfRepository.createAdminUser(userName, encodedPassword);
+    }
+
+    public String adminLogin(String userName, String password){
+        String encodedPassword = surfRepository.adminLogin(userName);
+        if(passwordEncoder.matches(password, encodedPassword)){
+            JwtBuilder builder = Jwts.builder()
+                    .signWith(SignatureAlgorithm.HS256, "secret")
+                    .claim("userName", userName);
+            return builder.compact();
+        } else {
+            throw new ApplicationException("Wrong password");
+        }
     }
 
 }

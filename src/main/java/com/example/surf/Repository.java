@@ -1,6 +1,7 @@
 package com.example.surf;
 
 import com.example.surf.DTOs.BookingInformation;
+import com.example.surf.DTOs.CreateUserRequest;
 import com.example.surf.DTOs.Styles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowCallbackHandler;
@@ -53,6 +54,20 @@ public class Repository {
         return jdbcTemplate.query(sql, paramMap, new BookingInformationRowMapper());
     }
 
+    public void createAdminUser(String userName, String encodedPassword){
+        String sql = "INSERT INTO admin_user(user_name, password) VALUES (:userName, :password)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userName", userName);
+        paramMap.put("password", encodedPassword);
+        jdbcTemplate.update(sql, paramMap);
+    }
+
+    public String adminLogin(String userName){
+        String sql = "SELECT password FROM admin_user WHERE user_name =:userName";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userName", userName);
+        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
+    }
 
     private class StylesRowMapper implements RowMapper<Styles> {
         public Styles mapRow(ResultSet resultSet, int i) throws SQLException {
