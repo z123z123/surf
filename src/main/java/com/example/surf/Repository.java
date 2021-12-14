@@ -27,7 +27,7 @@ public class Repository {
     }
 
     public void bookSingleClient(BookingInformation bookingInformation) {
-        String sql = "INSERT INTO surf_client(booking_id, date, time, surf_style, first_name, last_name, level, require_wetsuit,gender, weight, height, email )" +
+        String sql = "INSERT INTO surf_client(booking_id, date, time, surf_style, first_name, last_name, level, require_wetsuit,gender, weight, height, email)" +
                 " VALUES (:booking_id, :date, :time, :surf_style, :first_name, :last_name, :level, :require_wetsuit, :gender, :weight, :height, :email)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("booking_id", bookingInformation.getBookingId());
@@ -42,6 +42,7 @@ public class Repository {
         paramMap.put("weight", bookingInformation.getWeight());
         paramMap.put("height", bookingInformation.getHeight());
         paramMap.put("email", bookingInformation.getEmail());
+
 
         jdbcTemplate.update(sql, paramMap);
     }
@@ -79,26 +80,28 @@ public class Repository {
             client.setWeight(resultSet.getInt("weight"));
             client.setHeight(resultSet.getInt("height"));
             client.setEmail(resultSet.getString("email"));
+            client.setClientId(resultSet.getInt("client_id"));
 
             return client;
         }
     }
 
-    public int deleteClient(int booking_id) {
-        String sql = "DELETE FROM surf_client WHERE booking_id = :booking_id";
+    public int deleteClient(int clientId) {
+        String sql = "DELETE FROM surf_client WHERE client_id = :clientId";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("booking_id", booking_id);
+        paramMap.put("clientId", clientId);
 
         return jdbcTemplate.update(sql, paramMap);
     }
 
-    public BookingInformation editClient(int booking_id, BookingInformation client) {
+    public BookingInformation editClient(int clientId, BookingInformation client) {
         String sql = "UPDATE surf_client SET booking_id = :bookingId, date = :date, time = :time, " +
                 "surf_style = :surfStyle, first_name = :firstName, last_name = :lastName, " +
                 "level = :level, require_wetsuit = :wetsuit, gender = :gender, weight = :weight, " +
-                "height = :height, email = :email WHERE booking_id = :bookingId";
+                "height = :height, email = :email, client_id = :clientId WHERE client_id = :clientId";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("booking_id", booking_id);
+        paramMap.put("client_id", clientId);
+        paramMap.put("booking_id", client.getBookingId());
         paramMap.put("date", client.getDate());
         paramMap.put("time", client.getTime());
         paramMap.put("surf_style", client.getSurfStyle());

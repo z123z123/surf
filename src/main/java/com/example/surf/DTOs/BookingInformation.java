@@ -18,6 +18,15 @@ public class BookingInformation {
     private int weight;
     private int height;
     private String email;
+    private int clientId;
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
 
     public int getBookingId() {
         return bookingId;

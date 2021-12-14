@@ -39,4 +39,20 @@
     <changeSet id="" author="">
         <modifyDataType tableName="surf_client" columnName="time" newDataType="time"></modifyDataType>
     </changeSet>
+
+    <changeSet id="2021-12-14(1) add client_id" author="Evgenia">
+        <addColumn tableName="surf_client">
+            <column name="client_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+<changeSet id="2021-12-14(2) delete booking_id autoincrement" author="Evgenia">
+    <dropColumn tableName="surf_client" columnName="booking_id"></dropColumn>
+    <addColumn tableName="surf_client">
+        <column name="booking_id" type="int"></column>
+    </addColumn>
+</changeSet>
+
 </databaseChangeLog>
