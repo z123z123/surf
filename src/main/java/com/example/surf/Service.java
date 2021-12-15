@@ -65,10 +65,9 @@ public class Service {
     }
 
     public void bookGroup(List<BookingInformation> bookingInformation) {
-        for (int i = 0; i < 6; i++) {
-            int bookingId
+        for (int i = 0; i <bookingInformation.size(); i++) {
+            surfRepository.bookSingleClient(bookingInformation.get(i));
         }
-        surfRepository.bookGroup(bookingInformation);
 
     }
 
