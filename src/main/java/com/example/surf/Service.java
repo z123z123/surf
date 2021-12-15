@@ -21,8 +21,8 @@ public class Service {
         return surfRepository.getStyles();
     }
 
-    public void bookSingleClient(BookingInformation bookingInformation) {
-        surfRepository.bookSingleClient(bookingInformation);
+    public void bookClient(BookingInformation bookingInformation) {
+        surfRepository.bookClient(bookingInformation);
     }
 
     public List<BookingInformation> getAllClients() {
@@ -66,7 +66,7 @@ public class Service {
 
     public void bookGroup(List<BookingInformation> bookingInformation) {
         for (int i = 0; i <bookingInformation.size(); i++) {
-            surfRepository.bookSingleClient(bookingInformation.get(i));
+            surfRepository.bookClient(bookingInformation.get(i));
         }
 
     }
