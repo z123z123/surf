@@ -1,9 +1,6 @@
 package com.example.surf;
 
-import com.example.surf.DTOs.BookingInformation;
-import com.example.surf.DTOs.CreateUserRequest;
-import com.example.surf.DTOs.LoginUserRequest;
-import com.example.surf.DTOs.Styles;
+import com.example.surf.DTOs.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,5 +47,14 @@ public class Controller {
     @PutMapping("api/editclient/{id}")
     public BookingInformation editClient(@PathVariable("id") int clientId, @RequestBody BookingInformation client) {
         return surfService.editClient(clientId, client);
+    }
+
+    @GetMapping("api/public/gettimes")
+    public List<AvailableTime> getTimes(){
+        return surfService.getTimes();
+    }
+    @PutMapping("api/public/updatetimes")
+    public void updateTimes(@RequestBody UpdateTime updateTime){
+        surfService.updateTimes(updateTime);
     }
 }

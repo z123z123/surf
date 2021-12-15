@@ -63,5 +63,15 @@
             <column name="booking_id" type="int"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="2021-12-15" author="T.Veskilt">
+        <createTable tableName="available_time">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"></constraints>
+            </column>
+            <column name="time" type="time"></column>
+            <column name="date" type="date"></column>
+            <column name="count" type="int"></column>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>
