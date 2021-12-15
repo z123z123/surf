@@ -18,6 +18,7 @@ public class Service {
     private Repository surfRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     public List<Styles> getStyles() {
         return surfRepository.getStyles();
     }
@@ -26,18 +27,24 @@ public class Service {
         surfRepository.bookSingleClient(bookingInformation);
     }
 
-    public List<BookingInformation> getAllClients(){
+    public void bookGroup(BookingInformation bookingInformation) {
+        surfRepository.bookGroup(bookingInformation);
+    }
+
+
+
+    public List<BookingInformation> getAllClients() {
         return surfRepository.getAllClients();
     }
 
-    public void createAdminUser(String userName, String password){
+    public void createAdminUser(String userName, String password) {
         String encodedPassword = passwordEncoder.encode(password);
         surfRepository.createAdminUser(userName, encodedPassword);
     }
 
-    public String adminLogin(String userName, String password){
+    public String adminLogin(String userName, String password) {
         String encodedPassword = surfRepository.adminLogin(userName);
-        if(passwordEncoder.matches(password, encodedPassword)){
+        if (passwordEncoder.matches(password, encodedPassword)) {
             JwtBuilder builder = Jwts.builder()
                     .signWith(SignatureAlgorithm.HS256, "secret")
                     .claim("userName", userName);
@@ -46,7 +53,7 @@ public class Service {
             throw new ApplicationException("Wrong password");
         }
     }
-    
+
     public int deleteClient(int booking_id) {
         return surfRepository.deleteClient(booking_id);
     }
