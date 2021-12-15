@@ -57,4 +57,10 @@ public class Controller {
     public void updateTimes(@RequestBody UpdateTime updateTime){
         surfService.updateTimes(updateTime);
     }
+
+    @PostMapping("api/public/bookgroup")
+    public void bookGroup(@RequestBody List<BookingInformation> bookingInformation) {
+        surfService.bookGroup(bookingInformation);
+    }
+
 }
