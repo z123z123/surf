@@ -71,7 +71,7 @@ public class Repository {
     }
 
     public List<AvailableTime> getTimes() {
-        String sql = "SELECT * FROM available_time";
+        String sql = "SELECT * FROM available_time ORDER BY id";
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.query(sql, paramMap, new AvailableTimeRowMapper());
     }
