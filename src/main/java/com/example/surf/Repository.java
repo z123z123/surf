@@ -1,5 +1,6 @@
 package com.example.surf;
 
+import com.example.surf.DTOs.AvailableTime;
 import com.example.surf.DTOs.BookingInformation;
 import com.example.surf.DTOs.CreateUserRequest;
 import com.example.surf.DTOs.Styles;
@@ -69,34 +70,10 @@ public class Repository {
         return jdbcTemplate.queryForObject(sql, paramMap, String.class);
     }
 
-    private class StylesRowMapper implements RowMapper<Styles> {
-        public Styles mapRow(ResultSet resultSet, int i) throws SQLException {
-            Styles styles = new Styles();
-            styles.setId(resultSet.getInt("id"));
-            styles.setStyle(resultSet.getString("surf_style"));
-            styles.setPrice(resultSet.getInt("price"));
-            return styles;
-        }
-    }
-
-    private class BookingInformationRowMapper implements RowMapper<BookingInformation> {
-        public BookingInformation mapRow(ResultSet resultSet, int i) throws SQLException {
-            BookingInformation client = new BookingInformation();
-            client.setBookingId(resultSet.getInt("booking_id"));
-            client.setDate(resultSet.getDate("date"));
-            client.setTime(resultSet.getTime("time"));
-            client.setSurfStyle(resultSet.getInt("surf_style"));
-            client.setFirstName(resultSet.getString("first_name"));
-            client.setLastName(resultSet.getString("last_name"));
-            client.setLevel(resultSet.getString("level"));
-            client.setWetsuit(resultSet.getBoolean("require_wetsuit"));
-            client.setGender(resultSet.getString("gender"));
-            client.setWeight(resultSet.getInt("weight"));
-            client.setHeight(resultSet.getInt("height"));
-            client.setEmail(resultSet.getString("email"));
-
-            return client;
-        }
+    public List<AvailableTime> getTimes(){
+        String sql = "SELECT * FROM available_time";
+        Map<String, Object> paramMap = new HashMap<>();
+        return jdbcTemplate.query(sql, paramMap, new AvailableTimeRowMapper());
     }
 
     public int deleteClient(int clientId) {
@@ -131,4 +108,48 @@ public class Repository {
         return client;
     }
 
+/* ************* ROWMAPPERS *************** */
+
+    private class StylesRowMapper implements RowMapper<Styles> {
+        public Styles mapRow(ResultSet resultSet, int i) throws SQLException {
+            Styles styles = new Styles();
+            styles.setId(resultSet.getInt("id"));
+            styles.setStyle(resultSet.getString("surf_style"));
+            styles.setPrice(resultSet.getInt("price"));
+            return styles;
+        }
+    }
+
+    private class BookingInformationRowMapper implements RowMapper<BookingInformation> {
+        public BookingInformation mapRow(ResultSet resultSet, int i) throws SQLException {
+            BookingInformation client = new BookingInformation();
+            client.setBookingId(resultSet.getInt("booking_id"));
+            client.setDate(resultSet.getDate("date"));
+            client.setTime(resultSet.getTime("time"));
+            client.setSurfStyle(resultSet.getInt("surf_style"));
+            client.setFirstName(resultSet.getString("first_name"));
+            client.setLastName(resultSet.getString("last_name"));
+            client.setLevel(resultSet.getString("level"));
+            client.setWetsuit(resultSet.getBoolean("require_wetsuit"));
+            client.setGender(resultSet.getString("gender"));
+            client.setWeight(resultSet.getInt("weight"));
+            client.setHeight(resultSet.getInt("height"));
+            client.setEmail(resultSet.getString("email"));
+
+            return client;
+        }
+    }
+
+
+
+    private class AvailableTimeRowMapper implements RowMapper<AvailableTime> {
+        public AvailableTime mapRow(ResultSet resultSet, int i) throws SQLException {
+            AvailableTime time = new AvailableTime();
+            time.setId(resultSet.getInt("id"));
+            time.setTime(resultSet.getTime("time"));
+            time.setDate(resultSet.getDate("date"));
+            time.setCount(resultSet.getInt("count"));
+            return time;
+        }
+    }
 }

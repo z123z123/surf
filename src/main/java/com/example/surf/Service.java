@@ -1,5 +1,6 @@
 package com.example.surf;
 
+import com.example.surf.DTOs.AvailableTime;
 import com.example.surf.DTOs.BookingInformation;
 import com.example.surf.DTOs.CreateUserRequest;
 import com.example.surf.DTOs.Styles;
@@ -53,6 +54,10 @@ public class Service {
 
     public BookingInformation editClient(int clientId, BookingInformation client) {
         return surfRepository.editClient(clientId, client);
+    }
+
+    public List<AvailableTime> getTimes(){
+        return surfRepository.getTimes();
     }
 
 }
