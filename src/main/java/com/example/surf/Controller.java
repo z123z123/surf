@@ -51,4 +51,9 @@ public class Controller {
     public BookingInformation editClient(@PathVariable("id") int clientId, @RequestBody BookingInformation client) {
         return surfService.editClient(clientId, client);
     }
+
+    @PostMapping("api/public/bookgroup")
+    public void bookGroup(@RequestBody List<BookingInformation> bookingInformation) {
+        surfService.bookGroup(bookingInformation);
+    }
 }

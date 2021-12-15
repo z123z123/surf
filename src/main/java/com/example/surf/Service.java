@@ -27,12 +27,6 @@ public class Service {
         surfRepository.bookSingleClient(bookingInformation);
     }
 
-    public void bookGroup(BookingInformation bookingInformation) {
-        surfRepository.bookGroup(bookingInformation);
-    }
-
-
-
     public List<BookingInformation> getAllClients() {
         return surfRepository.getAllClients();
     }
@@ -60,6 +54,14 @@ public class Service {
 
     public BookingInformation editClient(int clientId, BookingInformation client) {
         return surfRepository.editClient(clientId, client);
+    }
+
+    public void bookGroup(List<BookingInformation> bookingInformation) {
+        for (int i = 0; i < 6; i++) {
+           int bookingId
+        }
+        surfRepository.bookGroup(bookingInformation);
+
     }
 
 }

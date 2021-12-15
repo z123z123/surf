@@ -47,26 +47,6 @@ public class Repository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public void bookGroup(BookingInformation bookingInformation) {
-        String sql = "INSERT INTO surf_client(booking_id, date, time, surf_style, first_name, last_name, level, require_wetsuit,gender, weight, height, email )" +
-                " VALUES (:booking_id, :date, :time, :surf_style, :first_name, :last_name, :level, :require_wetsuit, :gender, :weight, :height, :email)";
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("booking_id", bookingInformation.getBookingId());
-        paramMap.put("date", bookingInformation.getDate());
-        paramMap.put("time", bookingInformation.getTime());
-        paramMap.put("surf_style", bookingInformation.getSurfStyle());
-        paramMap.put("first_name", bookingInformation.getFirstName());
-        paramMap.put("last_name", bookingInformation.getLastName());
-        paramMap.put("level", bookingInformation.getLevel());
-        paramMap.put("require_wetsuit", bookingInformation.isWetsuit());
-        paramMap.put("gender", bookingInformation.getGender());
-        paramMap.put("weight", bookingInformation.getWeight());
-        paramMap.put("height", bookingInformation.getHeight());
-        paramMap.put("email", bookingInformation.getEmail());
-
-        jdbcTemplate.update(sql, paramMap);
-    }
-
     public List<BookingInformation> getAllClients() {
         String sql = "SELECT * FROM surf_client";
         Map<String, Object> paramMap = new HashMap<>();
@@ -74,7 +54,7 @@ public class Repository {
         return jdbcTemplate.query(sql, paramMap, new BookingInformationRowMapper());
     }
 
-    public void createAdminUser(String userName, String encodedPassword){
+    public void createAdminUser(String userName, String encodedPassword) {
         String sql = "INSERT INTO admin_user(user_name, password) VALUES (:userName, :password)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userName", userName);
@@ -82,7 +62,7 @@ public class Repository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public String adminLogin(String userName){
+    public String adminLogin(String userName) {
         String sql = "SELECT password FROM admin_user WHERE user_name =:userName";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userName", userName);
@@ -149,6 +129,26 @@ public class Repository {
         jdbcTemplate.update(sql, paramMap);
 
         return client;
+    }
+
+    public void bookGroup(BookingInformation bookingInformation) {
+        String sql = "INSERT INTO surf_client(booking_id, date, time, surf_style, first_name, last_name, level, require_wetsuit,gender, weight, height, email )" +
+                " VALUES (:booking_id, :date, :time, :surf_style, :first_name, :last_name, :level, :require_wetsuit, :gender, :weight, :height, :email)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("booking_id", bookingInformation.getBookingId());
+        paramMap.put("date", bookingInformation.getDate());
+        paramMap.put("time", bookingInformation.getTime());
+        paramMap.put("surf_style", bookingInformation.getSurfStyle());
+        paramMap.put("first_name", bookingInformation.getFirstName());
+        paramMap.put("last_name", bookingInformation.getLastName());
+        paramMap.put("level", bookingInformation.getLevel());
+        paramMap.put("require_wetsuit", bookingInformation.isWetsuit());
+        paramMap.put("gender", bookingInformation.getGender());
+        paramMap.put("weight", bookingInformation.getWeight());
+        paramMap.put("height", bookingInformation.getHeight());
+        paramMap.put("email", bookingInformation.getEmail());
+
+        jdbcTemplate.update(sql, paramMap);
     }
 
 }
