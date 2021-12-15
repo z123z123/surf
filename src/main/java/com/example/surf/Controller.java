@@ -53,4 +53,8 @@ public class Controller {
     public List<AvailableTime> getTimes(){
         return surfService.getTimes();
     }
+    @PutMapping("api/public/updatetimes")
+    public void updateTimes(@RequestBody UpdateTime updateTime){
+        surfService.updateTimes(updateTime);
+    }
 }

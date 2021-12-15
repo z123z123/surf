@@ -55,7 +55,7 @@ public class Repository {
         return jdbcTemplate.query(sql, paramMap, new BookingInformationRowMapper());
     }
 
-    public void createAdminUser(String userName, String encodedPassword){
+    public void createAdminUser(String userName, String encodedPassword) {
         String sql = "INSERT INTO admin_user(user_name, password) VALUES (:userName, :password)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userName", userName);
@@ -63,14 +63,14 @@ public class Repository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public String adminLogin(String userName){
+    public String adminLogin(String userName) {
         String sql = "SELECT password FROM admin_user WHERE user_name =:userName";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userName", userName);
         return jdbcTemplate.queryForObject(sql, paramMap, String.class);
     }
 
-    public List<AvailableTime> getTimes(){
+    public List<AvailableTime> getTimes() {
         String sql = "SELECT * FROM available_time";
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.query(sql, paramMap, new AvailableTimeRowMapper());
@@ -108,7 +108,15 @@ public class Repository {
         return client;
     }
 
-/* ************* ROWMAPPERS *************** */
+    public void updateTimes(int id, int newCount) {
+        String sql = "UPDATE available_time SET count = :newCount WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("newCount", newCount);
+        paramMap.put("id", id);
+        jdbcTemplate.update(sql, paramMap);
+    }
+
+    /* ************* ROWMAPPERS *************** */
 
     private class StylesRowMapper implements RowMapper<Styles> {
         public Styles mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -139,7 +147,6 @@ public class Repository {
             return client;
         }
     }
-
 
 
     private class AvailableTimeRowMapper implements RowMapper<AvailableTime> {
