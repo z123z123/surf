@@ -64,4 +64,12 @@ public class Service {
         surfRepository.updateTimes(id, newCount);
     }
 
+    public void bookGroup(List<BookingInformation> bookingInformation) {
+        for (int i = 0; i < 6; i++) {
+            int bookingId
+        }
+        surfRepository.bookGroup(bookingInformation);
+
+    }
+
 }
