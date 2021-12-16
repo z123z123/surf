@@ -19,7 +19,7 @@ public class Controller {
 
     @PostMapping("api/public/bookingsingle")
     public void bookSingleClient(@RequestBody BookingInformation bookingInformation) {
-        surfService.bookSingleClient(bookingInformation);
+        surfService.bookClient(bookingInformation);
     }
 
     @GetMapping("api/getallclients")
