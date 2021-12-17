@@ -4,6 +4,7 @@ import com.example.surf.DTOs.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class Controller {
     }
 
     @PostMapping("api/public/bookingsingle")
-    public void bookSingleClient(@RequestBody BookingInformation bookingInformation) {
+    public void bookSingleClient(@RequestBody BookingInformation bookingInformation) throws MessagingException {
         surfService.bookClient(bookingInformation);
     }
 
@@ -59,7 +60,7 @@ public class Controller {
     }
 
     @PostMapping("api/public/bookgroup")
-    public void bookGroup(@RequestBody List<BookingInformation> bookingInformation) {
+    public void bookGroup(@RequestBody List<BookingInformation> bookingInformation) throws MessagingException {
         surfService.bookGroup(bookingInformation);
     }
 
