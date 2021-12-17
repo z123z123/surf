@@ -143,6 +143,7 @@ public class Repository {
             client.setWeight(resultSet.getInt("weight"));
             client.setHeight(resultSet.getInt("height"));
             client.setEmail(resultSet.getString("email"));
+            client.setClientId(resultSet.getInt("client_id"));
 
             return client;
         }
